@@ -4,7 +4,7 @@
 #
 # Script specifications, change
 THIS_FOLDER=$PWD
-INSTALL_FOLDER=installer
+INSTALL_FOLDER=/tmp/installer
 OPENBLAS_VERSION=0.2.18
 THEANO_VERSION=0.8.2
 KERAS_VERSION=1.0.6
@@ -13,7 +13,7 @@ CHAINER_VERSION=1.12.0
 TORCH_VERSION=2
 
 # Create installation folder
-mkdir ~/$INSTALL_FOLDER
+mkdir -p $INSTALL_FOLDER
 
 # Install openblas
 # FIXME: check if the version is the same, if nto, then update
@@ -48,7 +48,7 @@ sudo `which pip` install chainer==$CHAINER_VERSION
 echo "Installing torch library version $TORCH_VERSION"
 sudo yum install -y readline-devel ncurses-devel libjpeg-turbo-devel libpng-devel GraphicsMagick-devel fftw-devel sox-devel sox qt-devel qtwebkit-devel 
 TORCH_FILE=/usr
-cd ~/$INSTALL_FOLDER
+cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
 cd torch
 cd $THIS_FOLDER
