@@ -10,7 +10,7 @@ THEANO_VERSION=0.8.2
 KERAS_VERSION=1.0.6
 SKLEARN_VERSION=0.17.1
 CHAINER_VERSION=1.12.0
-TORCH_VERSION=2
+TORCH_VERSION=LUAJIT21
 
 # Create installation folder
 mkdir -p $INSTALL_FOLDER
@@ -53,7 +53,7 @@ TORCH_FILE=/usr
 cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
 cd torch
-TORCH_LUA_VERSION=LUAJIT21 LUA_INCDIR=/usr/local/include LUA_LIBDIR=/usr/local/lib sudo ./install.sh -b
+TORCH_LUA_VERSION=$TORCH_VERSION LUA_INCDIR=/usr/local/include LUA_LIBDIR=/usr/local/lib sudo ./install.sh -b
 cd $THIS_FOLDER
 
 # Install mxnet
