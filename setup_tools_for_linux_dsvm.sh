@@ -53,7 +53,7 @@ echo "Installing chainer library version $CHAINER_VERSION"
 # FIXME: check if it is already installed, if not, then do it
 echo "Installing torch library version $TORCH_VERSION"
 TORCH_FILE=th
-if [! command -v $TORCH_FILE]; then
+#if [! command -v $TORCH_FILE]; then
 	yum install -y cmake readline-devel ncurses-devel libjpeg-turbo-devel libpng-devel GraphicsMagick-devel fftw-devel sox-devel sox qt-devel qtwebkit-devel 
 	cd $INSTALL_FOLDER
 	git clone https://github.com/torch/distro.git torch --recursive
@@ -61,7 +61,7 @@ if [! command -v $TORCH_FILE]; then
 	TORCH_LUA_VERSION=$TORCH_VERSION ./install.sh -b
 	source $HOME_USER/.bashrc
 	cd $THIS_FOLDER
-fi
+#fi
 
 # Install caffe
 #echo "Installing caffe library version $CAFFE_VERSION"
