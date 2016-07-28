@@ -53,7 +53,7 @@ TORCH_FILE=/usr
 cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
 cd torch
-TORCH_LUA_VERSION=LUAJIT21 sudo ./install.sh
+TORCH_LUA_VERSION=LUAJIT21 LUA_INCDIR=/usr/local/include LUA_LIBDIR=/usr/local/lib sudo ./install.sh -b
 cd $THIS_FOLDER
 
 # Install mxnet
