@@ -26,6 +26,8 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	make FC=gfortran -j $(($(nproc) + 1))
 	sudo make PREFIX=/usr/local install
 	cd $THIS_FOLDER
+else
+	echo "OpenBLAS already installed"
 fi
 
 #Install theano
@@ -51,6 +53,7 @@ TORCH_FILE=/usr
 cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
 cd torch
+TORCH_LUA_VERSION=LUAJIT21 sudo ./install.sh
 cd $THIS_FOLDER
 
 # Install mxnet
