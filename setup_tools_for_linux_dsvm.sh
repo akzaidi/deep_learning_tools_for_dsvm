@@ -11,6 +11,6 @@ mkdir ~/$INSTALL_FOLDER
 
 # Install keras
 echo "Installing keras library version $KERAS_VERSION"
-pip install keras=$KERAS_VERSION
+pip install keras==$KERAS_VERSION
 
 
