@@ -17,7 +17,7 @@ mkdir -p $INSTALL_FOLDER
 
 # Install openblas
 # FIXME: check if the version is the same, if nto, then update
-echo "Installing open-blas version $OPENBLAS_VERSION"
+echo "Installing OpenBLAS version $OPENBLAS_VERSION"
 OPENBLAS_FILE=/usr/local/include/openblas_config.h
 if [ ! -e $OPENBLAS_FILE ] ; then
 	cd ~/$INSTALL_FOLDER
@@ -27,7 +27,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	sudo make PREFIX=/usr/local install
 	cd $THIS_FOLDER
 else
-	echo "OpenBLAS already installed"
+	echo "WARNING: OpenBLAS already installed"
 fi
 
 #Install theano
@@ -48,7 +48,7 @@ sudo `which pip` install chainer==$CHAINER_VERSION
 
 # Install torch
 echo "Installing torch library version $TORCH_VERSION"
-sudo yum install -y readline-devel ncurses-devel libjpeg-turbo-devel libpng-devel GraphicsMagick-devel fftw-devel sox-devel sox qt-devel qtwebkit-devel 
+sudo yum install -y cmake readline-devel ncurses-devel libjpeg-turbo-devel libpng-devel GraphicsMagick-devel fftw-devel sox-devel sox qt-devel qtwebkit-devel 
 TORCH_FILE=/usr
 cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
