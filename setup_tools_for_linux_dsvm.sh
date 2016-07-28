@@ -3,6 +3,7 @@
 # This script installs several libraries for developing deep learning applications
 #
 # Script specifications, change
+THIS_FOLDER=$PWD
 INSTALL_FOLDER=installer
 THEANO_VERSION=0.8.2
 KERAS_VERSION=1.0.6
@@ -26,11 +27,11 @@ sudo `which pip` install scikit-learn==$SKLEARN_VERSION
 
 # Install openblas
 echo "Installing open-blas version $OPENBLAS_VERSION"
-cd $INSTALL_FOLDER
+cd ~/$INSTALL_FOLDER
 git clone --branch v$OPENBLAS_VERSION https://github.com/xianyi/OpenBLAS/
 make FC=gfortran -j $(($(nproc) + 1))
 sudo make PREFIX=/usr/local install
-cd ../..
+cd $THIS_FOLDER
 
 
 
