@@ -27,7 +27,7 @@ sudo `which pip` install scikit-learn==$SKLEARN_VERSION
 # Install openblas
 echo "Installing open-blas version $OPENBLAS_VERSION"
 cd $INSTALL_FOLDER
-git clone https://github.com/xianyi/OpenBLAS/releases/tag/v$OPENBLAS_VERSION
+git clone --branch v$OPENBLAS_VERSION https://github.com/xianyi/OpenBLAS/
 make FC=gfortran -j $(($(nproc) + 1))
 sudo make PREFIX=/usr/local install
 cd ../..
