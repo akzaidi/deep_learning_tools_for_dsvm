@@ -15,7 +15,7 @@ The following libraries are installed via a simple script:
 To install them all, just log in in your DSVM (in Linux) and write:
 
     sudo chmod +x setup_tools_for_linux_dsvm.sh
-    ./setup_tools_for_linux_dsvm.sh
+    sudo ./setup_tools_for_linux_dsvm.sh
 
 ## Solutions
 Next there are several solutions that will help you learn and understand deep learning.
