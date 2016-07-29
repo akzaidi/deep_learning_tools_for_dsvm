@@ -13,6 +13,7 @@ SKLEARN_VERSION=0.17.1
 CHAINER_VERSION=1.12.0
 TORCH_VERSION=LUAJIT21
 CAFFE_VERSION=rc3
+MXNET_VERSION=20160531
 
 # Create installation folder
 mkdir -p $INSTALL_FOLDER
@@ -25,7 +26,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd $INSTALL_FOLDER
 	git clone --branch v$OPENBLAS_VERSION https://github.com/xianyi/OpenBLAS/
 	cd OpenBLAS
-	make FC=gfortran -j $(($(nproc) + 1))
+	make FC=gfortran -j \$((\$(nproc) + 1))
 	make PREFIX=/usr/local install
 	cd $THIS_FOLDER
 else
@@ -75,14 +76,19 @@ sed -i "s|# PYTHON_INCLUDE := \$(ANACONDA_HOME)/include|PYTHON_INCLUDE := \$(ANA
 sed -i "s|PYTHON_LIB := /usr/lib|# PYTHON_LIB := /usr/lib|" Makefile.config
 sed -i "s|# PYTHON_LIB := \$(ANACONDA_HOME)/lib|PYTHON_LIB := \$(ANACONDA_HOME)/lib|" Makefile.config
 `which pip` install cython scikit-image h5py leveldb networkx python-gflags pillow
-make all -j $(($(nproc) + 1))
-make pycaffe -j $(($(nproc) + 1))
-echo 'export CAFFE_ROOT=$(pwd)' >> $HOME_USER/.bashrc
-echo 'export PYTHONPATH=$CAFFE_ROOT/python:$PYTHONPATH' >> $HOME_USER/.bashrc
+make all -j \$((\$(nproc) + 1))
+make pycaffe -j \$((\$(nproc) + 1))
+echo 'export CAFFE_ROOT=$INSTALL_FOLDER\caffe' >> $HOME_USER/.bashrc
+echo 'export PYTHONPATH=\$CAFFE_ROOT/python:\$PYTHONPATH' >> $HOME_USER/.bashrc
 source $HOME_USER/.bashrc
 cd $THIS_FOLDER
 
 # Install mxnet
+echo "Installing mxnet library version $MXNET_VERSION"
+cd $INSTALL_FOLDER
+git clone --branch $MXNET_VERSION https://github.com/dmlc/mxnet.git
+cd mxnet
+make -j\$(nproc)
 
 
 
