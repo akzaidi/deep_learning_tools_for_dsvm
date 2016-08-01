@@ -28,6 +28,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd OpenBLAS
 	make FC=gfortran -j \$((\$(nproc) + 1))
 	make PREFIX=/usr/local install
+	echo 'export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH' >> $HOME_USER/.bashrc
 	cd $THIS_FOLDER
 else
 	echo "WARNING: OpenBLAS already installed"
@@ -76,8 +77,8 @@ sed -i "s|# PYTHON_INCLUDE := \$(ANACONDA_HOME)/include|PYTHON_INCLUDE := \$(ANA
 sed -i "s|PYTHON_LIB := /usr/lib|# PYTHON_LIB := /usr/lib|" Makefile.config
 sed -i "s|# PYTHON_LIB := \$(ANACONDA_HOME)/lib|PYTHON_LIB := \$(ANACONDA_HOME)/lib|" Makefile.config
 `which pip` install cython scikit-image h5py leveldb networkx python-gflags pillow
-make all -j \$((\$(nproc) + 1))
-make pycaffe -j \$((\$(nproc) + 1))
+make all -j $(nproc) 
+make pycaffe -j $(nproc)
 echo 'export CAFFE_ROOT=$INSTALL_FOLDER\caffe' >> $HOME_USER/.bashrc
 echo 'export PYTHONPATH=\$CAFFE_ROOT/python:\$PYTHONPATH' >> $HOME_USER/.bashrc
 source $HOME_USER/.bashrc
@@ -86,9 +87,18 @@ cd $THIS_FOLDER
 # Install mxnet
 echo "Installing mxnet library version $MXNET_VERSION"
 cd $INSTALL_FOLDER
-git clone --branch $MXNET_VERSION https://github.com/dmlc/mxnet.git
+git clone --branch $MXNET_VERSION --recursive https://github.com/dmlc/mxnet.git
 cd mxnet
-make -j\$(nproc)
+cp make/config.mk .
+sed -i "s|USE_BLAS = atlas|USE_BLAS = openblas|" config.mk
+# sed -i "s|# TORCH_PATH = \$(HOME)/torch |# TORCH_PATH = $INSTALL_FOLDER/torch |" config.mk
+# sed -i "s|# MXNET_PLUGINS += plugin/torch/torch.mk|MXNET_PLUGINS += plugin/torch/torch.mk|" config.mk
+make -j $(nproc)
+yum install python-setuptools
+cd python
+sed -i "s|'numpy',|# 'numpy',|" setup.py
 
+python setup.py install
+echo 'export PYTHONPATH=$INSTALL_FOLDER/mxnet/python:\$PYTHONPATH' >> $HOME_USER/.bashrc
 
 
