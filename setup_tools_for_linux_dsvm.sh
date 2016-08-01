@@ -15,6 +15,7 @@ CAFFE_VERSION=rc3
 MXNET_VERSION=20160531
 
 # Create installation folder
+echo "Initializing deep learning tools for dsvm script"
 mkdir -p $INSTALL_FOLDER
 
 # Install openblas
@@ -107,4 +108,5 @@ cd ..
 make rpkg
 cd $THIS_FOLDER
 
+echo "Deep learning tools for dsvm script finished"
 
