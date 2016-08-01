@@ -25,7 +25,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd $INSTALL_FOLDER
 	git clone --branch v$OPENBLAS_VERSION https://github.com/xianyi/OpenBLAS/
 	cd OpenBLAS
-	make FC=gfortran -j \$((\$(nproc) + 1))
+	make FC=gfortran -j $(nproc)
 	make PREFIX=/usr/local install
 	echo 'export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH' >> $HOME/.bashrc
 	cd $THIS_FOLDER
