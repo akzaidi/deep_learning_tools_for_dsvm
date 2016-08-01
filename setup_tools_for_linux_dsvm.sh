@@ -3,9 +3,8 @@
 # This script installs several libraries for developing deep learning applications
 #
 # Script specifications, change
-HOME_USER=$HOME
 THIS_FOLDER=$PWD
-INSTALL_FOLDER=/tmp/installer
+INSTALL_FOLDER=$HOME/installer
 OPENBLAS_VERSION=0.2.18
 THEANO_VERSION=0.8.2
 KERAS_VERSION=1.0.6
@@ -28,7 +27,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd OpenBLAS
 	make FC=gfortran -j \$((\$(nproc) + 1))
 	make PREFIX=/usr/local install
-	echo 'export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH' >> $HOME_USER/.bashrc
+	echo 'export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH' >> $HOME/.bashrc
 	cd $THIS_FOLDER
 else
 	echo "WARNING: OpenBLAS already installed"
@@ -57,7 +56,7 @@ cd $INSTALL_FOLDER
 git clone https://github.com/torch/distro.git torch --recursive
 cd torch
 TORCH_LUA_VERSION=$TORCH_VERSION ./install.sh -b
-source $HOME_USER/.bashrc
+source $HOME/.bashrc
 cd $THIS_FOLDER
 
 # Install caffe
@@ -79,9 +78,9 @@ sed -i "s|# PYTHON_LIB := \$(ANACONDA_HOME)/lib|PYTHON_LIB := \$(ANACONDA_HOME)/
 `which pip` install cython scikit-image h5py leveldb networkx python-gflags pillow
 make all -j $(nproc) 
 make pycaffe -j $(nproc)
-echo 'export CAFFE_ROOT=$INSTALL_FOLDER\caffe' >> $HOME_USER/.bashrc
-echo 'export PYTHONPATH=\$CAFFE_ROOT/python:\$PYTHONPATH' >> $HOME_USER/.bashrc
-source $HOME_USER/.bashrc
+echo 'export CAFFE_ROOT=$INSTALL_FOLDER\caffe' >> $HOME/.bashrc
+echo 'export PYTHONPATH=\$CAFFE_ROOT/python:\$PYTHONPATH' >> $HOME/.bashrc
+source $HOME/.bashrc
 cd $THIS_FOLDER
 
 # Install mxnet
@@ -97,8 +96,15 @@ make -j $(nproc)
 yum install python-setuptools
 cd python
 sed -i "s|'numpy',|# 'numpy',|" setup.py
-
 python setup.py install
-echo 'export PYTHONPATH=$INSTALL_FOLDER/mxnet/python:\$PYTHONPATH' >> $HOME_USER/.bashrc
+echo 'export PYTHONPATH=$INSTALL_FOLDER/mxnet/python:\$PYTHONPATH' >> $HOME/.bashrc
+cd ..
+Rscript -e "install.packages('devtools', repo = 'https://cran.rstudio.com')"
+cd R-package
+Rscript -e "library(devtools); library(methods); options(repos=c(CRAN='https://cran.rstudio.com')); install_deps(dependencies = TRUE)"
+Rscript -e "install.packages('scales')"
+cd ..
+make rpkg
+cd $THIS_FOLDER
 
 
