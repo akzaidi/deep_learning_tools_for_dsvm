@@ -16,10 +16,10 @@ There are two configurations for the CNN, one is a fully connected CNN and the o
 
 * Fully connected CNN:
     
-    cd R/mxnet
-    R < fully_connected.R --no-save
+    cd R/mxnet  
+    R < fully_connected.R --no-save  
 
 * Lenet CNN:
 
-    cd R/mxnet
-    R < lenet.R --no-save
+    cd R/mxnet  
+    R < lenet.R --no-save  
