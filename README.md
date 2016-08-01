@@ -14,7 +14,7 @@ The following libraries are installed via a simple script:
 
 To install them all, just log in in your DSVM (in Linux) and write:
 
-    sudo chmod +x install.sh
+    sudo chmod +x -R install.sh config
     ./install.sh
 
 ## Solutions
