@@ -9,7 +9,6 @@ class(mx.ctx.internal.default.value) = "MXContext"
 
 
 #Gather the data
-#root_path <- fromJSON(file = "../../share/config.json")
 root_path <- c("../../data/")
 train_file <- file.path(root_path,"mnist_train.csv")
 test_file <- file.path(root_path,"mnist_test.csv")

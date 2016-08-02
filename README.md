@@ -26,3 +26,4 @@ Next there are several solutions that will help you learn and understand deep le
 * Implementation of artistic style in images
 * Word prediction from characters
 * Sentiment Analisys
+* General machine learning examples
