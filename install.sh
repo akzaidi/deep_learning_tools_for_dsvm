@@ -25,9 +25,6 @@ echo "HOME PATH = $SESSION_HOME"
 # Execute script that installs many deep learning libraries
 sudo config/setup_tools_for_linux_dsvm.sh $INSTALL_FOLDER $SESSION_HOME
 
-# Install mxnet
-#Rscript -e "LIB_PATH <- paste0(Sys.getenv('LD_LIBRARY_PATH'),'/usr/local/lib'); Sys.setenv(LD_LIBRARY_PATH=LIB_PATH)"
-#cd $INSTALL_FOLDER/installer/mxnet
-#R CMD INSTALL mxnet_0.7.tar.gz
+
 
 
