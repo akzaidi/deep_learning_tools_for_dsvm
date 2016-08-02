@@ -110,5 +110,8 @@ make rpkg
 cd $THIS_FOLDER
 source $SESSION_HOME/.bashrc
 
+cd $INSTALL_FOLDER/mxnet
+Rscript  -e "LIB_PATH <- paste0(Sys.getenv('LD_LIBRARY_PATH'),':/usr/local/lib'); Sys.setenv(LD_LIBRARY_PATH=LIB_PATH); install.packages('mxnet_0.7.tar.gz')"
+
 echo "Deep learning tools for dsvm script finished"
 
