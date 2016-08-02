@@ -5,6 +5,6 @@ build
 Thumbs.db 
 .DS_Store 
 *.pyc
-
+installer
 #ignore csv files in data folder
 solutions/character_recognition/data/*.csv
