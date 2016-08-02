@@ -8,3 +8,4 @@ Thumbs.db
 installer
 #ignore csv files in data folder
 solutions/character_recognition/data/*.csv
+solutions/character_recognition/data/*.csv.1

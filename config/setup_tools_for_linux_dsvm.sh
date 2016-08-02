@@ -30,7 +30,7 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd OpenBLAS
 	make FC=gfortran -j $(nproc)
 	make PREFIX=/usr/local install
-	echo 'export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH' >> $SESSION_HOME/.bashrc
+	echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/.bashrc
 	cd $THIS_FOLDER
 else
 	echo "WARNING: OpenBLAS already installed"
@@ -80,8 +80,10 @@ sed -i "s|# PYTHON_LIB := \$(ANACONDA_HOME)/lib|PYTHON_LIB := \$(ANACONDA_HOME)/
 `which pip` install cython scikit-image h5py leveldb networkx python-gflags pillow
 make all -j $(nproc) 
 make pycaffe -j $(nproc)
-echo 'export CAFFE_ROOT=$INSTALL_FOLDER\caffe' >> $SESSION_HOME/.bashrc
-echo 'export PYTHONPATH=\$CAFFE_ROOT/python:\$PYTHONPATH' >> $SESSION_HOME/.bashrc
+CAFFE_ROOT=$INSTALL_FOLDER/caffe
+echo "export CAFFE_ROOT=$CAFFE_ROOT" >> $SESSION_HOME/.bashrc
+PYTHONPATH=$CAFFE_ROOT/python:$PYTHONPATH
+echo "export PYTHONPATH=$PYTHONPATH" >> $SESSION_HOME/.bashrc
 cd $THIS_FOLDER
 
 # Install mxnet
@@ -99,7 +101,8 @@ yum install python-setuptools
 cd python
 sed -i "s|'numpy',|# 'numpy',|" setup.py
 python setup.py install
-echo 'export PYTHONPATH=$INSTALL_FOLDER/mxnet/python:\$PYTHONPATH' >> $SESSION_HOME/.bashrc
+PYTHONPATH=$INSTALL_FOLDER/mxnet/python:$PYTHONPATH
+echo "export PYTHONPATH=$PYTHONPATH" >> $SESSION_HOME/.bashrc
 cd ..
 Rscript -e "install.packages('devtools', repo = 'https://cran.rstudio.com')"
 cd R-package
@@ -107,7 +110,7 @@ Rscript -e "library(devtools); library(methods); options(repos=c(CRAN='https://c
 Rscript -e "install.packages(c('scales','knitr','mlbench','zoo','stringr','ggplot2','plyr','manipulate','colorspace','reshape2','digest','RColorBrewer'), dependencies = TRUE)"
 cd ..
 make rpkg
-cd $THIS_FOLDER
+
 source $SESSION_HOME/.bashrc
 
 cd $INSTALL_FOLDER/mxnet
