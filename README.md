@@ -10,7 +10,7 @@ The following libraries are installed via a simple script:
 * [caffe](https://github.com/BVLC/caffe): Deep learning library from Berkeley. Code in C++.
 * [torch](https://github.com/torch/torch7): Mathematical framework for deep learning. Code in Lua and C.
 * [chainer](https://github.com/pfnet/chainer): Deep learning library based in caffe. Code in python.
-* [theano](https://github.com/Theano/Theano): Mathematical framework for deep learning. Code in python
+* [theano](https://github.com/Theano/Theano): Mathematical framework for deep learning. Code in python.
 
 To install them all, just log in in your DSVM (in Linux) and write:
 
