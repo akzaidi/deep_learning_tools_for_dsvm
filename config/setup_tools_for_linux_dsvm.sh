@@ -16,6 +16,13 @@ TORCH_VERSION=LUAJIT21
 CAFFE_VERSION=rc3
 MXNET_VERSION=20160531
 
+
+# Temporary fix for the new DSVMs
+rm /usr/bin/python
+ln -s /usr/bin/python2.7 /usr/bin/python
+export PATH=/usr/local/bin:/usr/bin:/usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/:$PATH
+
+
 # Create installation folder
 echo "Initializing deep learning tools for dsvm script"
 mkdir -p $INSTALL_FOLDER
@@ -30,11 +37,15 @@ if [ ! -e $OPENBLAS_FILE ] ; then
 	cd OpenBLAS
 	make FC=gfortran -j $(nproc)
 	make PREFIX=/usr/local install
-	echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/.bashrc
 	cd $THIS_FOLDER
 else
 	echo "WARNING: OpenBLAS already installed"
 fi
+echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/.bashrc
+
+#Install pip
+yum install python-pip
+yum install python-wheel
 
 #Install theano
 echo "Installing theano library version $THEANO_VERSION"
