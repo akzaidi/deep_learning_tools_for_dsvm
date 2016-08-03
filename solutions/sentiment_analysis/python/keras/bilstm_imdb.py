@@ -55,7 +55,7 @@ print('Train...')
 model.fit(X_train, y_train,
           batch_size=batch_size,
           nb_epoch=4,
-          validation_data=[X_test, y_test], verbose=True)
+          validation_data=[X_test, y_test], verbose=1)
 
 acc = accuracy(y_test, np.round(np.array(model.predict({'input': X_test},
                batch_size=batch_size)['output'])))
