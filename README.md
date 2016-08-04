@@ -23,7 +23,7 @@ Next there are several solutions that will help you learn and understand deep le
 * Character Recognition
 * Image classification CIFAR
 * Image classification ImageNet
-* Implementation of artistic style in images
+* Neural algorithm of artistic style in images
 * Word prediction from characters
 * Sentiment Analisys
 * General machine learning examples
