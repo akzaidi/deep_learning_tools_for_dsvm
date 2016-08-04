@@ -11,5 +11,5 @@ installer
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv*
 solutions/image_classification_imagenet/data/Inception*
-
+solutions/word_prediction_from_char/data/tiny_shakespeare.txt
 
