@@ -11,6 +11,5 @@ installer
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv*
 solutions/image_classification_imagenet/data/Inception*
-solutions/image_classification_imagenet/data/mean_224.nd
-solutions/image_classification_imagenet/data/synset.txt
+
 
