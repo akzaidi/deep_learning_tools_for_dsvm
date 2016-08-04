@@ -118,7 +118,7 @@ cd ..
 Rscript -e "install.packages('devtools', repo = 'https://cran.rstudio.com')"
 cd R-package
 Rscript -e "library(devtools); library(methods); options(repos=c(CRAN='https://cran.rstudio.com')); install_deps(dependencies = TRUE)"
-Rscript -e "install.packages(c('scales','knitr','mlbench','zoo','stringr','ggplot2','plyr','manipulate','colorspace','reshape2','digest','RColorBrewer'), dependencies = TRUE)"
+Rscript -e "install.packages(c('scales','knitr','mlbench','zoo','stringr','ggplot2','plyr','manipulate','colorspace','reshape2','digest','RColorBrewer','imager'), dependencies = TRUE)"
 cd ..
 make rpkg
 
