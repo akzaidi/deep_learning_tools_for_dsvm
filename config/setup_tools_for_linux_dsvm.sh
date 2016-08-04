@@ -17,15 +17,6 @@ CAFFE_VERSION=rc3
 MXNET_VERSION=20160531
 
 
-# Temporary fix for the new DSVMs
-rm /usr/bin/python
-ln -s /usr/bin/python2.7 /usr/bin/python
-rm /usr/bin/R
-ln -s /usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/R /usr/bin/R
-rm /usr/bin/Rscript
-ln -s /usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/Rscript /usr/bin/Rscript
-export PATH=/usr/local/bin:/usr/bin:/usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/:$PATH
-export LD_LIBRARY_PATH=/usr/lib64/MRO-3.2.5/R-3.2.5/lib64:$LD_LIBRARY_PATH
 
 # Create installation folder
 echo "Initializing deep learning tools for dsvm script"
