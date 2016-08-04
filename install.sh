@@ -23,7 +23,7 @@ echo "USER = $SESSION_USER"
 echo "HOME PATH = $SESSION_HOME"
 
 # Execute script that installs many deep learning libraries
-sudo config/env_setup.sh 
+sudo config/env_setup.sh $SESSION_HOME
 sudo config/setup_tools_for_linux_dsvm.sh $INSTALL_FOLDER $SESSION_HOME
 
 
