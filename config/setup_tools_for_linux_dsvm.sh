@@ -16,7 +16,7 @@ TORCH_VERSION=LUAJIT21
 CAFFE_VERSION=rc3
 MXNET_VERSION=20160531
 
-
+source $SESSION_HOME/.bashrc
 
 # Create installation folder
 echo "Initializing deep learning tools for dsvm script"
@@ -37,6 +37,7 @@ else
 	echo "WARNING: OpenBLAS already installed"
 fi
 echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/.bashrc
+echo "export PYTHONPATH=$INSTALL_FOLDER/OpenBLAS/:$PYTHONPATH" >> $SESSION_HOME/.bashrc 
 
 #Install pip
 yum install python-pip
