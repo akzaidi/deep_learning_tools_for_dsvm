@@ -20,8 +20,12 @@ MXNET_VERSION=20160531
 # Temporary fix for the new DSVMs
 rm /usr/bin/python
 ln -s /usr/bin/python2.7 /usr/bin/python
+rm /usr/bin/R
+ln -s /usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/R /usr/bin/R
+rm /usr/bin/Rscript
+ln -s /usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/Rscript /usr/bin/Rscript
 export PATH=/usr/local/bin:/usr/bin:/usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/:$PATH
-
+export LD_LIBRARY_PATH=/usr/lib64/MRO-3.2.5/R-3.2.5/lib64:$LD_LIBRARY_PATH
 
 # Create installation folder
 echo "Initializing deep learning tools for dsvm script"
@@ -46,6 +50,7 @@ echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/
 #Install pip
 yum install python-pip
 yum install python-wheel
+pip install --upgrade pip
 
 #Install theano
 echo "Installing theano library version $THEANO_VERSION"
@@ -121,11 +126,10 @@ Rscript -e "library(devtools); library(methods); options(repos=c(CRAN='https://c
 Rscript -e "install.packages(c('scales','knitr','mlbench','zoo','stringr','ggplot2','plyr','manipulate','colorspace','reshape2','digest','RColorBrewer'), dependencies = TRUE)"
 cd ..
 make rpkg
-
-source $SESSION_HOME/.bashrc
-
 cd $INSTALL_FOLDER/mxnet
 Rscript  -e "LIB_PATH <- paste0(Sys.getenv('LD_LIBRARY_PATH'),':/usr/local/lib'); Sys.setenv(LD_LIBRARY_PATH=LIB_PATH); install.packages('mxnet_0.7.tar.gz')"
+
+source $SESSION_HOME/.bashrc
 
 echo "Deep learning tools for dsvm script finished"
 
