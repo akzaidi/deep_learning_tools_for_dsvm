@@ -26,6 +26,6 @@ echo "HOME PATH = $SESSION_HOME"
 sudo config/env_setup.sh $SESSION_HOME
 sudo config/setup_tools_for_linux_dsvm.sh $INSTALL_FOLDER $SESSION_HOME
 
-
-
-
+# Post installation fix for caffe
+sudo cp /usr/lib64/libhdf5.so.8 /usr/lib64/libhdf5.so.10
+sudo cp /usr/lib64/libhdf5_hl.so.8 /usr/lib64/libhdf5_hl.so.10
