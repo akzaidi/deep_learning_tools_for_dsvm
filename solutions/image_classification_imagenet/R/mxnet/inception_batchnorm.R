@@ -29,7 +29,7 @@ preproc.image <- function(im, mean.image) {
   arr <- as.array(resized)
   dim(arr) = c(224, 224, 3)
   # substract the mean
-  normed <- arr - mean.img
+  normed <- arr - mean.imgage
   # Reshape to format needed by mxnet (width, height, channel, num)
   dim(normed) <- c(224, 224, 3, 1)
   return(normed)
