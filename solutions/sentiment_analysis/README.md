@@ -13,14 +13,19 @@ Implementation of the [paper](http://arxiv.org/abs/1606.01781) Very Deep Convolu
 
 Initially some libraries must be installed:
 
-		pip install tqdm
+	pip install tqdm
 
 In order to download the database Amazon review polarity:
 	
-		cd data
-		python download_amazon_review_polarity.py  
+	cd data
+	python download_amazon_review_polarity.py  
 
-To run the code:
+To run the code in R:
 
-		cd python/mxnet
-		python very_deep_cnn_for_nlp.py
+	cd R/mxnet
+	R < very_deep_cnn_for_nlp.R --no-save
+
+To run the code in python:
+
+	cd python/mxnet
+	python very_deep_cnn_for_nlp.py
