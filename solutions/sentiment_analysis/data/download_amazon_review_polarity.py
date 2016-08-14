@@ -2,7 +2,7 @@ import numpy as np
 import csv
 import requests
 from tqdm import tqdm
-
+import os.path
 
 AZ_ACC = "amazonsentimenik"
 AZ_CONTAINER = "textclassificationdatasets"
@@ -14,13 +14,16 @@ print(cdict)
 
 
 def download_file(url):
-    print('downloading data: %s' % url)
     local_filename = url.split('/')[-1]
-    response = requests.get(url, stream=True)
-    with open(local_filename, "wb") as handle:
-        for data in tqdm(response.iter_content()):
-            handle.write(data)
-    print('saved data')
+    if os.path.isfile(local_filename):
+        print("The file %s already exist in the current directory" % local_filename)
+    else:
+        print('downloading data: %s' % url)
+        response = requests.get(url, stream=True)
+        with open(local_filename, "wb") as handle:
+            for data in tqdm(response.iter_content()):
+                handle.write(data)
+        print('saved data')
 
 
 def create_features(infile, outfile):
@@ -29,7 +32,8 @@ def create_features(infile, outfile):
     with open(outfile, 'w') as outy:
         writer = csv.writer(outy, lineterminator='\n')
         writer.writerow(['class'] + ["v%d" % (d+1) for d in range(FEATURE_LEN)])
-        with open(infile, 'r', encoding="utf8") as iny:
+        #with open(infile, 'r', encoding="utf8") as iny: #python3
+        with open(infile, 'rb') as iny:
             # use summary and review columns
             reader = csv.DictReader(iny, fieldnames=['class','summary','review'])
             for r in reader:
@@ -49,6 +53,6 @@ def create_features(infile, outfile):
                         
 if __name__ == '__main__':
     create_features(infile='amazon_review_polarity_test.csv', outfile='test_char_cnn.csv')
-    print("saved test")
+    print("saved test set")
     create_features(infile='amazon_review_polarity_train.csv', outfile='train_char_cnn.csv')
-    print("saved train")
+    print("saved train set")
