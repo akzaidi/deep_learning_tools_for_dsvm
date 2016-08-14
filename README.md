@@ -20,10 +20,9 @@ To install them all, just log in in your DSVM (in Linux) and write:
 ## Solutions
 Next there are several solutions that will help you learn and understand deep learning.
 
-* Character Recognition
-* Image classification CIFAR
-* Image classification ImageNet
-* Neural algorithm of artistic style in images
-* Word prediction from characters
-* Sentiment Analisys
-* General machine learning examples
+* [Character Recognition](solutions/character_recognition)
+* [Image classification ImageNet](solutions/image_classification_imagenet)
+* [Neural algorithm of artistic style in images](solutions/neural_artistic_style)
+* [Word prediction from characters](solutions/word_prediction_from_char)
+* [Sentiment Analisys](solutions/sentiment_analysis)
+* [General machine learning examples](solutions/general_examples)

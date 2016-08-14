@@ -1,4 +1,3 @@
-import find_mxnet
 import mxnet as mx
 import os, sys
 from collections import namedtuple
@@ -53,7 +52,7 @@ def get_executor(style, content, input_size, ctx):
     arg_dict = dict(zip(arg_names, [mx.nd.zeros(shape, ctx=ctx) for shape in arg_shapes]))
     grad_dict = {"data": arg_dict["data"].copyto(ctx)}
     # init with pretrained weight
-    pretrained = mx.nd.load("./model/vgg19.params")
+    pretrained = mx.nd.load("../../data/neural_stile_vgg19.params")
     for name in arg_names:
         if name == "data":
             continue
