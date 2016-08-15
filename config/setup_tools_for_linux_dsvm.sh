@@ -44,6 +44,9 @@ yum install python-pip
 yum install python-wheel
 pip install --upgrade pip
 
+# Install some needed python libraries
+`which pip` install wget==3.2 czipfile==1.0.0
+
 #Install theano
 echo "Installing theano library version $THEANO_VERSION"
 `which pip` install theano==$THEANO_VERSION
