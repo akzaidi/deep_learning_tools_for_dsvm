@@ -1,6 +1,5 @@
 import numpy as np
 import csv
-import requests
 import os
 import wget
 
@@ -30,7 +29,8 @@ def create_features(infile, outfile):
     with open(outfile, 'w') as outy:
         writer = csv.writer(outy, lineterminator='\n')
         writer.writerow(['class'] + ["v%d" % (d+1) for d in range(FEATURE_LEN)])
-        with open(infile, 'r', encoding="utf8") as iny:
+        #with open(infile, 'r', encoding="utf8") as iny: #for python3
+        with open(infile, 'r') as iny:
             # use summary and review columns
             reader = csv.DictReader(iny, fieldnames=['class','summary','review'])
             for r in reader:
