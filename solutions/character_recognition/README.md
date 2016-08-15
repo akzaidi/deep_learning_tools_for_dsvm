@@ -7,8 +7,7 @@ This example shows how Convolutional Neural Networks work with character recogni
 To download the MNIST database:
 
        cd data
-       chmod +x download_mnist_data.sh
-       ./download_mnist_data.sh
+       python download_mnist_data.sh
 
 ## Run Convolutional Neural Networks
 

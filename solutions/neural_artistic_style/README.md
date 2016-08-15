@@ -7,8 +7,7 @@ This example shows the implementation of of the paper [A Neural Algorithm of Art
 To download the data:
 
 	cd data
-	chmod +x download_data.sh
-	./download_data.sh
+	python download_data.sh
 
 ## Run Neural Algorithm for Artistic Style
 

@@ -7,8 +7,7 @@ This example shows how to use Recurrent Neural Networks to learn the structure o
 To download the data:
 
        cd data
-       chmod +x download_data.sh
-       ./download_data.sh
+       python download_data.py
 
 ## Run Recurrent Neural Networks
 
