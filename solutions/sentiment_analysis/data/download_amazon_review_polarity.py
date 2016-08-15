@@ -1,15 +1,9 @@
 import numpy as np
-<<<<<<< HEAD
 import csv
 import requests
 import os
 import wget
 
-=======
-import pandas as pd
-import os.path
-import wget
->>>>>>> origin/sentiment_analysis
 
 AZ_ACC = "amazonsentimenik"
 AZ_CONTAINER = "textclassificationdatasets"
@@ -25,13 +19,8 @@ def download_file(url):
     if os.path.isfile(local_filename):
         print("The file %s already exist in the current directory" % local_filename)
     else:
-<<<<<<< HEAD
         print("downloading ...")
         wget.download(url)
-=======
-        print('downloading data: %s' % url)
-        response = wget.download(url)
->>>>>>> origin/sentiment_analysis
         print('saved data')
 
 
