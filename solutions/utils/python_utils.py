@@ -2,6 +2,7 @@ import wget
 import os
 os.path.dirname(os.path.abspath(__file__))
 
+
 def download_file(url):
     """
     Downloads a file from a url if the file does not exist in the current folder

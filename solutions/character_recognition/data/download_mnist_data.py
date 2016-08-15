@@ -1,6 +1,6 @@
 #Downloads the MNIST data
 
-from deep_learning_tools_for_dsvm.solutions.utils.python_utils import *
+from deep_learning_tools_for_dsvm.solutions.utils.python_utils import download_file
 import os
 os.path.dirname(os.path.abspath(__file__))
 
