@@ -14,7 +14,7 @@ SKLEARN_VERSION=0.17.1
 CHAINER_VERSION=1.12.0
 TORCH_VERSION=LUAJIT21
 CAFFE_VERSION=rc3
-MXNET_VERSION=20160531
+MXNET_VERSION=450141c5293b332948e5c403c689b64f4ce22efd
 
 source $SESSION_HOME/.bashrc
 
@@ -98,8 +98,9 @@ cd $THIS_FOLDER
 echo "Installing mxnet library version $MXNET_VERSION"
 yum install -y libssh2-devel
 cd $INSTALL_FOLDER
-git clone --branch $MXNET_VERSION --recursive https://github.com/dmlc/mxnet.git
+git clone --recursive https://github.com/dmlc/mxnet.git
 cd mxnet
+git checkout $MXNET_VERSION
 cp make/config.mk .
 sed -i "s|USE_BLAS = atlas|USE_BLAS = openblas|" config.mk
 # sed -i "s|# TORCH_PATH = \$(HOME)/torch |# TORCH_PATH = $INSTALL_FOLDER/torch |" config.mk

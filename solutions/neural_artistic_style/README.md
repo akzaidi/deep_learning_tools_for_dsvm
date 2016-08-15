@@ -6,14 +6,14 @@ This example shows the implementation of of the paper [A Neural Algorithm of Art
 ## Download data
 To download the data:
 
-       cd data
-       chmod +x download_data.sh
-       ./download_data.sh
+	cd data
+	chmod +x download_data.sh
+	./download_data.sh
 
-## Run Neural Algorithm for Artistica Style
+## Run Neural Algorithm for Artistic Style
 
 To run the algorithm:
     
-        cd python/mxnet  
-        python neural_style.py  
+	cd python/mxnet  
+	python neural_style.py  
 
