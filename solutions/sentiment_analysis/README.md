@@ -13,7 +13,7 @@ Implementation of the [paper](http://arxiv.org/abs/1606.01781) Very Deep Convolu
 
 Initially some libraries must be installed:
 
-	pip install tqdm
+	pip install wget
 
 In order to download the database Amazon review polarity:
 	

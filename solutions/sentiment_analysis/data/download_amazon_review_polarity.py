@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
-import requests
-from tqdm import tqdm
 import os.path
+import wget
 
 AZ_ACC = "amazonsentimenik"
 AZ_CONTAINER = "textclassificationdatasets"
@@ -17,10 +16,7 @@ def download_file(url):
         print("The file %s already exist in the current directory" % local_filename)
     else:
         print('downloading data: %s' % url)
-        response = requests.get(url, stream=True)
-        with open(local_filename, "wb") as handle:
-            for data in tqdm(response.iter_content()):
-                handle.write(data)
+        response = wget.download(url)
         print('saved data')
 
 
