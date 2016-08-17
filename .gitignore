@@ -7,6 +7,7 @@ Thumbs.db
 *.pyc
 installer
 .RData
+.Rhistory
 
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv

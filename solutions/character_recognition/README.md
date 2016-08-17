@@ -6,9 +6,8 @@ This example shows how Convolutional Neural Networks work with character recogni
 
 To download the MNIST database:
 
-       cd data
-       chmod +x download_mnist_data.sh
-       ./download_mnist_data.sh
+    cd data
+    python download_mnist_data.sh
 
 ## Run Convolutional Neural Networks
 
@@ -16,10 +15,10 @@ There are two configurations for the CNN, one is a fully connected CNN and the o
 
 * Fully connected CNN:
     
-        cd R/mxnet  
-        R < fully_connected.R --no-save  
+    cd R/mxnet  
+    R < fully_connected.R --no-save  
 
 * Lenet CNN:
 
-        cd R/mxnet  
-        R < lenet.R --no-save  
+    cd R/mxnet  
+    R < lenet.R --no-save  

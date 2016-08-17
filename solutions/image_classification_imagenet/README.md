@@ -7,8 +7,7 @@ This example shows how to use Convolutional Neural Networks to idenify an image 
 To download ImageNet data:
 
        cd data
-       chmod +x download_imagenet_data.sh
-       ./download_imagenet_data.sh
+       python download_imagenet_data.sh
 
 ## Run Convolutional Neural Networks
 
