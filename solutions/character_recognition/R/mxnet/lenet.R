@@ -35,6 +35,8 @@ train.array <- train.x
 dim(train.array) <- c(28, 28, 1, ncol(train.x))
 test.array <- test.x
 dim(test.array) <- c(28, 28, 1, ncol(test.x))
+format(object.size(train.array),units='auto')
+format(object.size(test.array),units='auto')
 
 
 # Creation of LeNet
