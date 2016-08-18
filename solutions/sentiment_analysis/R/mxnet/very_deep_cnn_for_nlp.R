@@ -36,7 +36,7 @@ format(object.size(train.array),units='auto')
 convolution_block <- function(data, kernel, num_filter, act_type = 'relu'){
   conv <- mx.symbol.Convolution(data=data, kernel=kernel, num_filter=num_filter)
   norm <- mx.symbol.BatchNorm(data=conv)
-  act <- mx.symbol.Activation(data=norm, act_type="relu")
+  act <- mx.symbol.Activation(data=norm, act_type=act_type)
 }
   
 # Model
