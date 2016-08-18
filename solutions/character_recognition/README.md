@@ -21,4 +21,4 @@ There are two configurations for the CNN, one is a fully connected CNN and the o
 * Lenet CNN:
 
     cd R/mxnet  
-    R < lenet.R --no-save  
+    R < lenet_simple.R --no-save  
