@@ -19,7 +19,7 @@ momentum <- 0.9
 batch_size <- 100 #in the paper was 128, but with that and GPUs it gets out of memory
 ######################################################################
 #input data
-number_examples <- batch_size*2
+number_examples <- 200
 input_fake <- as.integer(sample(c(0,1), replace=TRUE, size=vocab_size*feature_len*number_examples))
 output_fake <- as.integer(sample(c(0,1), replace=TRUE, size=number_examples))
 train.array <- input_fake
@@ -30,12 +30,7 @@ dim(train.array)
 length(train.y)
 format(object.size(train.array),units='auto')
 
-# CSVIter is uesed here, since the data can't fit into memory
-data_train <- mx.io.CSVIter(
-  data.csv = "./train-64x64-data.csv", data.shape = c(64, 64, 30),
-  label.csv = "./train-stytole.csv", label.shape = 600,
-  batch.size = batch_size
-)
+
 ######################################################################
 # Convolution block
 convolution_block <- function(data, kernel, num_filter, act_type = 'relu'){
