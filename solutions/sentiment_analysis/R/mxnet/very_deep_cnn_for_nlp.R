@@ -14,21 +14,28 @@ num_output_classes <- 2
 vocab_size <- 69  
 embedding_size <- 16
 feature_len <- 1014
-learning_rate <- 0.01 #paper's: 0.01
+learning_rate <- 0.01 
 momentum <- 0.9
-minibatch_size <- 128
+batch_size <- 100 #in the paper was 128, but with that and GPUs it gets out of memory
 ######################################################################
 #input data
-number_examples <- minibatch_size*2
+number_examples <- batch_size*2
 input_fake <- as.integer(sample(c(0,1), replace=TRUE, size=vocab_size*feature_len*number_examples))
 output_fake <- as.integer(sample(c(0,1), replace=TRUE, size=number_examples))
 train.array <- input_fake
+# array dimension: it's width, height, channels, samples
 dim(train.array) <- c(vocab_size, feature_len, 1, number_examples)
 train.y <- output_fake
 dim(train.array)
 length(train.y)
 format(object.size(train.array),units='auto')
 
+# CSVIter is uesed here, since the data can't fit into memory
+data_train <- mx.io.CSVIter(
+  data.csv = "./train-64x64-data.csv", data.shape = c(64, 64, 30),
+  label.csv = "./train-stytole.csv", label.shape = 600,
+  batch.size = batch_size
+)
 ######################################################################
 # Convolution block
 convolution_block <- function(data, kernel, num_filter, act_type = 'relu'){
@@ -77,11 +84,12 @@ network <- mx.symbol.SoftmaxOutput(data=fc3) # loss
 devices <- mx.cpu()
 time_init <- Sys.time()
 model <- mx.model.FeedForward.create(network, X=train.array, y=train.y,
-                                     ctx=devices, num.round=5, array.batch.size=minibatch_size,
+                                     ctx=devices, num.round=1, array.batch.size=batch_size,
                                      learning.rate=learning_rate, momentum=momentum,  
                                      eval.metric=mx.metric.accuracy, wd=0.00001,
                                      epoch.end.callback=mx.callback.log.train.metric(100))
 time_end <- Sys.time()
 difftime(time_end, time_init, units = "mins")
 
+#gc()
 
