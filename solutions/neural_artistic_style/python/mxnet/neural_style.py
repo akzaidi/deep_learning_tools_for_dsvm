@@ -6,6 +6,7 @@ import argparse
 from collections import namedtuple
 from skimage import io, transform
 from skimage.restoration import denoise_tv_chambolle
+import time
 
 DATA_FOLDER = '../../data/'
 
@@ -33,7 +34,7 @@ parser.add_argument('--max-long-edge', type=int, default=600,
 parser.add_argument('--lr', type=float, default=.001,
                     help='the initial learning rate')
 parser.add_argument('--gpu', type=int, default=-1,
-                    help='which gpu card to use, can be 0,1,2...; -1 means using cpu')
+                    help='0 means using gpu; -1 means using cpu, there is no multi-gpu support yet')
 parser.add_argument('--output', type=str, default=DATA_FOLDER+'out.jpg',
                     help='the output image')
 parser.add_argument('--save-epochs', type=int, default=50,
@@ -90,7 +91,12 @@ def SaveImage(img, filename):
     io.imsave(filename, out)
 
 # input
-dev = mx.gpu(args.gpu) if args.gpu >= 0 else mx.cpu()
+tic = time.time()
+# input
+if args.gpu >= 0:
+    dev = mx.gpu(0)
+else:
+    dev = mx.cpu()
 content_np = PreprocessContentImage(args.content_image, args.max_long_edge)
 style_np = PreprocessStyleImage(args.style_image, shape=content_np.shape)
 size = content_np.shape[2:]
@@ -220,6 +226,8 @@ for e in range(args.max_num_epochs):
         break
     if (e+1) % args.save_epochs == 0:
         SaveImage(new_img.asnumpy(), DATA_FOLDER+'tmp_'+str(e+1)+'.jpg')
+
+logging.info("Finished training in %.0f seconds" % (time.time() - tic))
 
 SaveImage(new_img.asnumpy(), args.output)
 
