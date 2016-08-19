@@ -23,7 +23,7 @@ We can combine a picture of Bill Gates with the style of Vincent van Gogh's Star
 <img src="data/starry_night.jpg" alt="Starry Night" width="35%">
 <img src="data/bill-gates-desk-starry.jpg" alt="Bill Gates with Starry Night style" width="30%">
 
-We can also combine a picture of Satya Nadella with the style of Pablo Picasso self protrait:
+We can also combine a picture of Satya Nadella with the style of Pablo Picasso self portrait:
 
 <img src="data/satya.jpg" alt="Satya Nadella" width="40%">
 <img src="data/pablo_picasso.jpg" alt="Pablo Picasso" width="18%">
