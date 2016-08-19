@@ -19,7 +19,7 @@ To run the algorithm in a GPU (see `--help` for more options):
 # Results
 We can combine a picture of Bill Gates with the style of Vincent van Gogh's Starry Night:
 
-<img src="data/bill-gates-desk.jpg" alt="Bill Gates" style="width: 50px;">
-<img src="data/starry_night.jpg" alt="Starry Night" style="width: 50px;">
-<img src="data/bill-gates-desk-starry.jpg" alt="Bill Gates with Starry Night style" style="width: 50px;">
+<img src="data/bill-gates-desk.jpg" alt="Bill Gates" width="150">
+<img src="data/starry_night.jpg" alt="Starry Night" width="150">
+<img src="data/bill-gates-desk-starry.jpg" alt="Bill Gates with Starry Night style" width="150">
 
