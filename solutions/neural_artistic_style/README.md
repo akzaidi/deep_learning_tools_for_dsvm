@@ -19,9 +19,9 @@ To run the algorithm in a GPU (see `--help` for more options):
 # Results
 We can combine a picture of Bill Gates with the style of Vincent van Gogh's Starry Night:
 
-![Bill Gates](data/bill-gates-desk.jpg =150)
+![Bill Gates](data/bill-gates-desk.jpg =150x)
 *Original picture*
-![Starry Night](data/starry_night.jpg =150)
+![Starry Night](data/starry_night.jpg =150x)
 *Style*
-![Bill Gates with Starry Night style](data/bill-gates-desk-starry.jpg =150)
+![Bill Gates with Starry Night style](data/bill-gates-desk-starry.jpg =150x)
 *Picture with new stile*
