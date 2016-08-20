@@ -18,7 +18,7 @@ To install them all, just log in in your DSVM (in Linux) and write:
     ./install.sh
 
 ## Solutions
-Next there are several solutions that will help you learn and understand deep learning.
+Next, there are several solutions that will help you learn and understand deep learning.
 
 * [Character Recognition](solutions/character_recognition)
 * [Image classification CIFAR](solutions/image_classification_cifar)
