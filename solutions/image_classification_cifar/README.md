@@ -6,17 +6,22 @@ This example shows ResNet architecture to model the network, other architectures
 
 ## Download CIFAR-10 dataset 
 
- The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. To download the data:
+The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. To download the data:
 
-       cd data
-       python download_data.py
+	cd data
+	python download_data.py
 
 ## Run Convolutional Neural Networks
 
 ResNet have a depth of 152 convolutional layers. This examples have two versions a small one and the full one.
 
+* Execution in R with mxnet library:
+
+	cd R/mxnet
+	R < train_resnet.R --no-save  
+
 * Execution in python with mxnet library:
     
-        cd python/mxnet  
-        python train_resnet.py  
+    cd python/mxnet  
+    python train_resnet.py  
 
