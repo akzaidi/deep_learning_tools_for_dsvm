@@ -32,7 +32,7 @@ parse_args <- function() {
   parser$add_argument('--network', type='character', default='resnet-28-small',
                       choices = c('mlp', 'lenet'),
                       help = 'the cnn to use')
-  parser$add_argument('--data-dir', type='character', default='cifar10/',
+  parser$add_argument('--data-dir', type='character', default='../../data/cifar10/',
                       help='the input data directory')
   parser$add_argument('--gpus', type='character',
                       help='the gpus will be used, e.g "0,1,2,3"')
