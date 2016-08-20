@@ -7,11 +7,11 @@ This example shows how to use Convolutional Neural Networks to idenify an image 
 To download ImageNet data:
 
        cd data
-       python download_imagenet_data.sh
+       python download_imagenet_data.py
 
 ## Run Convolutional Neural Networks
 
-This example shows how to use a CNN to identify images using a pre-trained Inception-BatchNorm network. This configuratin is based in [Ioffe et al. (2015)](http://arxiv.org/abs/1502.03167v3).
+This example shows how to use a CNN to identify images using a pre-trained Inception-BatchNorm network. This configuration is based in [Ioffe et al. (2015)](http://arxiv.org/abs/1502.03167v3).
 
 * CNN with Inception-BatchNorm architecture:
     
