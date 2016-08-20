@@ -3,8 +3,6 @@ require(mxnet)
 #Initialize variables
 devices <- mx.cpu() #mx.gpu()
 mx.set.seed(0)
-mx.ctx.internal.default.value = list(device="cpu",device_id=0,device_typeid=1)
-class(mx.ctx.internal.default.value) = "MXContext"
 
 data(Sonar, package="mlbench")
 

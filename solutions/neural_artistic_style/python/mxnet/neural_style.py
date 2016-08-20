@@ -6,15 +6,18 @@ import argparse
 from collections import namedtuple
 from skimage import io, transform
 from skimage.restoration import denoise_tv_chambolle
+import time
+
+DATA_FOLDER = '../../data/'
 
 parser = argparse.ArgumentParser(description='neural style')
 
 parser.add_argument('--model', type=str, default='vgg19',
                     choices = ['vgg'],
                     help = 'the pretrained model to use')
-parser.add_argument('--content-image', type=str, default='../../data/bill-gates-desk.jpg',
+parser.add_argument('--content-image', type=str, default=DATA_FOLDER+'bill-gates-desk.jpg',
                     help='the content image')
-parser.add_argument('--style-image', type=str, default='../../data//starry_night.jpg',
+parser.add_argument('--style-image', type=str, default=DATA_FOLDER+'starry_night.jpg',
                     help='the style image')
 parser.add_argument('--stop-eps', type=float, default=.005,
                     help='stop if the relative chanage is less than eps')
@@ -30,9 +33,9 @@ parser.add_argument('--max-long-edge', type=int, default=600,
                     help='resize the content image')
 parser.add_argument('--lr', type=float, default=.001,
                     help='the initial learning rate')
-parser.add_argument('--gpu', type=int, default=0,
-                    help='which gpu card to use, -1 means using cpu')
-parser.add_argument('--output', type=str, default='../../data/out.jpg',
+parser.add_argument('--gpu', type=int, default=-1,
+                    help='0 means using gpu; -1 means using cpu, there is no multi-gpu support yet')
+parser.add_argument('--output', type=str, default=DATA_FOLDER+'out.jpg',
                     help='the output image')
 parser.add_argument('--save-epochs', type=int, default=50,
                     help='save the output every n epochs')
@@ -88,7 +91,12 @@ def SaveImage(img, filename):
     io.imsave(filename, out)
 
 # input
-dev = mx.gpu(args.gpu) if args.gpu >= 0 else mx.cpu()
+tic = time.time()
+# input
+if args.gpu >= 0:
+    dev = mx.gpu(0)
+else:
+    dev = mx.cpu()
 content_np = PreprocessContentImage(args.content_image, args.max_long_edge)
 style_np = PreprocessStyleImage(args.style_image, shape=content_np.shape)
 size = content_np.shape[2:]
@@ -217,7 +225,9 @@ for e in range(args.max_num_epochs):
         logging.info('eps < args.stop_eps, training finished')
         break
     if (e+1) % args.save_epochs == 0:
-        SaveImage(new_img.asnumpy(), 'output/tmp_'+str(e+1)+'.jpg')
+        SaveImage(new_img.asnumpy(), DATA_FOLDER+'tmp_'+str(e+1)+'.jpg')
+
+logging.info("Finished training in %.0f seconds" % (time.time() - tic))
 
 SaveImage(new_img.asnumpy(), args.output)
 

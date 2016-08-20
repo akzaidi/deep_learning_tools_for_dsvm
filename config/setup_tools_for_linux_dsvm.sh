@@ -14,14 +14,9 @@ SKLEARN_VERSION=0.17.1
 CHAINER_VERSION=1.12.0
 TORCH_VERSION=LUAJIT21
 CAFFE_VERSION=rc3
-MXNET_VERSION=20160531
+MXNET_VERSION=450141c5293b332948e5c403c689b64f4ce22efd
 
-
-# Temporary fix for the new DSVMs
-rm /usr/bin/python
-ln -s /usr/bin/python2.7 /usr/bin/python
-export PATH=/usr/local/bin:/usr/bin:/usr/lib64/MRO-3.2.5/R-3.2.5/lib64/R/bin/:$PATH
-
+source $SESSION_HOME/.bashrc
 
 # Create installation folder
 echo "Initializing deep learning tools for dsvm script"
@@ -42,10 +37,15 @@ else
 	echo "WARNING: OpenBLAS already installed"
 fi
 echo "export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH" >> $SESSION_HOME/.bashrc
+echo "export PYTHONPATH=$INSTALL_FOLDER/OpenBLAS/:$PYTHONPATH" >> $SESSION_HOME/.bashrc 
 
 #Install pip
 yum install python-pip
 yum install python-wheel
+pip install --upgrade pip
+
+# Install some needed python libraries
+`which pip` install wget==3.2 czipfile==1.0.0
 
 #Install theano
 echo "Installing theano library version $THEANO_VERSION"
@@ -101,8 +101,9 @@ cd $THIS_FOLDER
 echo "Installing mxnet library version $MXNET_VERSION"
 yum install -y libssh2-devel
 cd $INSTALL_FOLDER
-git clone --branch $MXNET_VERSION --recursive https://github.com/dmlc/mxnet.git
+git clone --recursive https://github.com/dmlc/mxnet.git
 cd mxnet
+git checkout $MXNET_VERSION
 cp make/config.mk .
 sed -i "s|USE_BLAS = atlas|USE_BLAS = openblas|" config.mk
 # sed -i "s|# TORCH_PATH = \$(HOME)/torch |# TORCH_PATH = $INSTALL_FOLDER/torch |" config.mk
@@ -121,11 +122,10 @@ Rscript -e "library(devtools); library(methods); options(repos=c(CRAN='https://c
 Rscript -e "install.packages(c('scales','knitr','mlbench','zoo','stringr','ggplot2','plyr','manipulate','colorspace','reshape2','digest','RColorBrewer','imager'), dependencies = TRUE)"
 cd ..
 make rpkg
-
-source $SESSION_HOME/.bashrc
-
 cd $INSTALL_FOLDER/mxnet
 Rscript  -e "LIB_PATH <- paste0(Sys.getenv('LD_LIBRARY_PATH'),':/usr/local/lib'); Sys.setenv(LD_LIBRARY_PATH=LIB_PATH); install.packages('mxnet_0.7.tar.gz')"
+
+source $SESSION_HOME/.bashrc
 
 echo "Deep learning tools for dsvm script finished"
 

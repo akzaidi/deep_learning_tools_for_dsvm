@@ -8,10 +8,13 @@ Thumbs.db
 installer
 .RData
 .Rhistory
+.Rproj
+.Rproj.user
 
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv*
 solutions/image_classification_imagenet/data/Inception*
 solutions/word_prediction_from_char/data/tiny_shakespeare.txt
-solutions/neural_artistic_style/data/*.jpg
+solutions/neural_artistic_style/data/tmp*.jpg
+solutions/neural_artistic_style/data/out.jpg
 solutions/neural_artistic_style/data/*.params

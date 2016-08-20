@@ -1,7 +1,5 @@
 
 require(mxnet)
-mx.ctx.internal.default.value = list(device="cpu",device_id=0,device_typeid=1)
-class(mx.ctx.internal.default.value) = "MXContext"
 require(imager)
 
 
@@ -19,7 +17,7 @@ preproc.image <- function(im, mean.image) {
   shape <- dim(im)
   short.edge <- min(shape[1:2])
   xx <- floor((shape[1] - short.edge) / 2)
-  yy <- floor((shape[2] - short.edge) / 2) 
+  yy <- floor((shape[2] - short.edge) / 2)
   croped <- crop.borders(im, xx, yy)
   # resize to 224 x 224, needed by input of the model.
   resized <- resize(croped, 224, 224)

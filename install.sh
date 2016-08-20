@@ -23,8 +23,9 @@ echo "USER = $SESSION_USER"
 echo "HOME PATH = $SESSION_HOME"
 
 # Execute script that installs many deep learning libraries
+sudo config/env_setup.sh $SESSION_HOME
 sudo config/setup_tools_for_linux_dsvm.sh $INSTALL_FOLDER $SESSION_HOME
 
-
-
-
+# Post installation fix for caffe
+sudo cp /usr/lib64/libhdf5.so.8 /usr/lib64/libhdf5.so.10
+sudo cp /usr/lib64/libhdf5_hl.so.8 /usr/lib64/libhdf5_hl.so.10
