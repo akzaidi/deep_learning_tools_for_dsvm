@@ -59,6 +59,8 @@ if (args$network == 'resnet') {
   source("symbol_resnet-28-small.R")
   net <- get_symbol()
 }
+time_init <- Sys.time()
 train_model.fit(args, net, get_iterator())
-
+time_end <- Sys.time()
+difftime(time_end, time_init, units = "mins")
 
