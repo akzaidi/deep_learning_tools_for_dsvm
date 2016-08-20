@@ -2,11 +2,9 @@ require(mxnet)
 require(argparse)
 
 
-get_iterator <- function() {
-  get_iterator_impl <- function(args) {
+get_iterator <- function(data.shape) {
     data_dir = args$data_dir
-    data.shape <- c(28,28,3)
-    
+    data.shape <- data.shape
     train = mx.io.ImageRecordIter(
       path.imgrec     = paste0(data_dir, "train.rec"),
       path.imglist    = paste0(data_dir, "train.lst"),
@@ -21,10 +19,7 @@ get_iterator <- function() {
       batch.size      = args$batch_size,
       data.shape      = data.shape
     )
-    
     ret = list(train=train, value=val)
-  }
-  get_iterator_impl
 }
 
 parse_args <- function() {
@@ -48,10 +43,9 @@ parse_args <- function() {
                       help='the kvstore type')
   parser$parse_args()
 }
-
 args = parse_args()
+
 # train
-source("train_model.R")
 if (args$network == 'resnet') {
   source("symbol_resnet.R")
   net <- get_symbol()
@@ -59,8 +53,50 @@ if (args$network == 'resnet') {
   source("symbol_resnet-28-small.R")
   net <- get_symbol()
 }
+
+# save model
+if (is.null(args$model_prefix)) {
+  checkpoint <- NULL
+} else {
+  checkpoint <- mx.callback.save.checkpoint(args$model_prefix)
+}
+
+# data
+data.shape <- c(28,28,3)
+data <- get_iterator(data.shape = data.shape)
+train <- data$train
+val <- data$value
+
+
+# train
+args$gpus <- c("0")
+if (is.null(args$gpus)) {
+  print("Computing with CPU")
+  devs <- mx.cpu()  
+} else {
+  print(paste0("GPU option: ", args$gpus))
+  devs <- lapply(unlist(strsplit(args$gpus, ",")), function(i) {
+    mx.gpu(as.integer(i))
+  })
+}
+
+#train
 time_init <- Sys.time()
-train_model.fit(args, net, get_iterator())
+model = mx.model.FeedForward.create(
+  X                  = train,
+  eval.data          = val,
+  ctx                = devs,
+  symbol             = net,
+  eval.metric        = mx.metric.accuracy,
+  num.round          = args$num_round,
+  learning.rate      = args$lr,
+  momentum           = 0.9,
+  wd                 = 0.00001,
+  kvstore            = args$kv_store,
+  array.batch.size   = args$batch_size,
+  epoch.end.callback = checkpoint,
+  batch.end.callback = mx.callback.log.train.metric(50)
+)
 time_end <- Sys.time()
 difftime(time_end, time_init, units = "mins")
 
