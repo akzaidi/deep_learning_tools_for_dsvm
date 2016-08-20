@@ -17,11 +17,11 @@ ResNet have a depth of 152 convolutional layers. This examples have two versions
 
 * Execution in R with mxnet library:
 
-	cd R/mxnet
-	R < train_resnet.R --no-save  
+		cd R/mxnet
+		R < train_resnet.R --no-save  
 
 * Execution in python with mxnet library:
     
-    cd python/mxnet  
-    python train_resnet.py  
+    	cd python/mxnet  
+    	python train_resnet.py  
 
