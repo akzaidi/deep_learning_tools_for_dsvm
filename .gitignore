@@ -16,3 +16,4 @@ solutions/word_prediction_from_char/data/tiny_shakespeare.txt
 solutions/neural_artistic_style/data/*.jpg
 solutions/neural_artistic_style/data/*.params
 solutions/sentiment_analysis/data/*.csv
+.Rproj.user

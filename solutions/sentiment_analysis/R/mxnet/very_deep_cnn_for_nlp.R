@@ -12,13 +12,13 @@ num_filters4 <- num_filters3*2
 fully_connected_size <- 2048
 num_output_classes <- 2
 vocab_size <- 69  
-embedding_size <- 16
 feature_len <- 1014
+embedding_size <- 16
 learning_rate <- 0.01 
 momentum <- 0.9
-batch_size <- 100 #in the paper was 128, but with that and GPUs it gets out of memory
+batch_size <- 16 #in the paper was 128, but with that and GPUs it gets out of memory
 ######################################################################
-#input data
+#fake input data
 number_examples <- 200
 input_fake <- as.integer(sample(c(0,1), replace=TRUE, size=vocab_size*feature_len*number_examples))
 output_fake <- as.integer(sample(c(0,1), replace=TRUE, size=number_examples))
@@ -29,6 +29,33 @@ train.y <- output_fake
 dim(train.array)
 length(train.y)
 format(object.size(train.array),units='auto')
+######################################################################
+#Real data
+
+
+CustomIter <- function (data.csv, data.shape, batch.size, shuffle=FALSE) 
+{
+  vocab_size <- data.shape[1]
+  feature_len <- data.shape[2]
+  csv_iter <- mx.io.CSVIter(data.csv=data.csv, data.shape=c(1,feature_len), batch.size=batch.size)
+  csv_iter$iter.next()
+  vect <- as.array(csv_iter$value()$data)
+  data <- array(0, dim=c(vocab_size,feature_len,1, batch.size))
+  format(object.size(data),units='auto')
+  for(b in 1:batch.size){
+    for(f in 1:feature_len){
+      data[vect[1,f,b],f,1,b] <- 1
+    }
+  }
+  label <- array(0, c(1,batch.size) )
+  custom_iter <- mx.io.arrayiter(data=data, label=label, batch.size=batch.size, shuffle=shuffle) 
+}
+
+train.array <- CustomIter(data.csv = "../../data/test_char_cnn_nohead.csv",
+                          data.shape = c(vocab_size,feature_len + 1),
+                          batch.size = batch_size,
+                          shuffle = TRUE)
+
 
 
 ######################################################################
