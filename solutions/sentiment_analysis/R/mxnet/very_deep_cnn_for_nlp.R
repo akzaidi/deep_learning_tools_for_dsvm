@@ -18,89 +18,30 @@ learning_rate <- 0.01
 momentum <- 0.9
 batch_size <- 16 #in the paper was 128, but with that and GPUs it gets out of memory
 ######################################################################
-#fake input data
+# Fake input data
 number_examples <- 200
 input_fake <- as.integer(sample(c(0,1), replace=TRUE, size=vocab_size*feature_len*number_examples))
 output_fake <- as.integer(sample(c(0,1), replace=TRUE, size=number_examples))
 train.array <- input_fake
-# array dimension: it's width, height, channels, samples
+# Array dimension: it's width, height, channels, samples
 dim(train.array) <- c(vocab_size, feature_len, 1, number_examples)
 train.y <- output_fake
 dim(train.array)
 length(train.y)
 format(object.size(train.array),units='auto')
+
 ######################################################################
 #Real data
-
-
-CustomIter <- function (data.csv, data.shape, batch.size, shuffle=FALSE) 
-{
-  vocab_size <- data.shape[1]
-  feature_len <- data.shape[2]
-  csv_iter <- mx.io.CSVIter(data.csv=data.csv, data.shape=c(1,feature_len), batch.size=batch.size)
-  csv_iter$iter.next()
-  vect <- as.array(csv_iter$value()$data)
-  data <- array(0, dim=c(vocab_size,feature_len,1, batch.size))
-  format(object.size(data),units='auto')
-  for(b in 1:batch.size){
-    for(f in 1:feature_len){
-      data[vect[1,f,b],f,1,b] <- 1
-    }
-  }
-  label <- array(0, c(1,batch.size) )
-  custom_iter <- mx.io.arrayiter(data=data, label=label, batch.size=batch.size, shuffle=shuffle) 
-}
-
-train.array <- CustomIter(data.csv = "../../data/test_char_cnn_nohead.csv",
+if(!exists("CustomCSVIter", mode="function")) source("CustomCSVIter.R")  
+train.array <- CustomCSVIter(data.csv = "../../data/test_char_cnn_nohead.csv",
                           data.shape = c(vocab_size,feature_len + 1),
                           batch.size = batch_size,
                           shuffle = TRUE)
 
-
-
 ######################################################################
-# Convolution block
-convolution_block <- function(data, kernel, num_filter, act_type = 'relu'){
-  conv <- mx.symbol.Convolution(data=data, kernel=kernel, num_filter=num_filter)
-  norm <- mx.symbol.BatchNorm(data=conv)
-  act <- mx.symbol.Activation(data=norm, act_type=act_type)
-}
-  
-# Model
-#API info: https://turi.com/products/create/docs/graphlab.mxnet.html
-data <- mx.symbol.Variable('data')
-# Input = #vocab_size x 1014
-conv0 <- mx.symbol.Convolution(data=data, num_filter=num_filters1, kernel=kernel)
-# First convolution block of size num_filters1 (x2)
-conv11 <- convolution_block(data = data, kernel=kernel, num_filter=num_filters1)
-conv12 <- convolution_block(data = conv11, kernel=kernel, num_filter=num_filters1)
-# Pooling/2 (=ROIPooling????)
-pool1 <- mx.symbol.Pooling(data=conv12, pool_type="max", kernel=kernel, stride=stride)
-# Second convolution block of size num_filters2 (x2)
-conv21 <- convolution_block(data = pool1, kernel=kernel, num_filter=num_filters2)
-conv22 <- convolution_block(data = conv21, kernel=kernel, num_filter=num_filters2)
-# Pooling/2
-pool2 <- mx.symbol.Pooling(data=conv22, pool_type="max", kernel=kernel, stride=stride)
-# Thrid convolution block of size num_filters3 (x2)
-conv31 <- convolution_block(data = pool2, kernel=kernel, num_filter=num_filters3)
-conv32 <- convolution_block(data = conv11, kernel=kernel, num_filter=num_filters3)
-# Pooling/2
-pool3 <- mx.symbol.Pooling(data=conv22, pool_type="max", kernel=kernel, stride=stride)
-# Fourth convolution block of size num_filters4 (x2)
-conv41 <- convolution_block(data = pool3, kernel=kernel, num_filter=num_filters4)
-conv42 <- convolution_block(data = conv41, kernel=kernel, num_filter=num_filters4)
-# Pooling k=8
-pool4 <- mx.symbol.Pooling(data=conv42, pool_type="max", kernel=kernel_out, stride=stride)
-# First fully connected
-flatten <- mx.symbol.Flatten(data=pool4)
-fc1 <- mx.symbol.FullyConnected(data=flatten, num_hidden=fully_connected_size) 
-act_fc1 <- mx.symbol.Activation(data=fc1, act_type="relu")
-# Second fully connected
-fc2 <- mx.symbol.FullyConnected(data=flatten, num_hidden=fully_connected_size)
-act_fc1 <- mx.symbol.Activation(data=fc2, act_type="relu")
-# third fullc
-fc3 <- mx.symbol.FullyConnected(data=flatten, num_hidden=num_output_classes)
-network <- mx.symbol.SoftmaxOutput(data=fc3) # loss
+#Load model
+if(!exists("network_model", mode="function")) source("network_model.R")  
+network <- network_model()
 
 #Train the NN
 devices <- mx.cpu()
