@@ -69,7 +69,6 @@ val <- data$value
 
 
 # train
-args$gpus <- c("0")
 if (is.null(args$gpus)) {
   print("Computing with CPU")
   devs <- mx.cpu()  
