@@ -20,7 +20,8 @@ batch_size <- 16 #in the paper was 128, but with that and GPUs it gets out of me
 ######################################################################
 # Fake input data
 number_examples <- 200
-input_fake <- as.integer(sample(c(0,1), replace=TRUE, size=vocab_size*feature_len*number_examples))
+input_fake <- as.integer(sample(c(0,1), replace=TRUE, 
+                                size=vocab_size*feature_len*number_examples))
 output_fake <- as.integer(sample(c(0,1), replace=TRUE, size=number_examples))
 train.array <- input_fake
 # Array dimension: it's width, height, channels, samples
@@ -32,11 +33,20 @@ format(object.size(train.array),units='auto')
 
 ######################################################################
 #Real data
-if(!exists("CustomCSVIter", mode="function")) source("CustomCSVIter.R")  
-train.array <- CustomCSVIter(data.csv = "../../data/test_char_cnn_nohead.csv",
-                          data.shape = c(vocab_size,feature_len + 1),
-                          batch.size = batch_size,
+if(!exists("CustomCSVIter", mode="function")) source("custom_csv_iter.R")
+batch.size <- 2
+#train.array <- CustomCSVIter(data.csv = "../../data/test_char_cnn_nohead.csv",
+#                          data.shape = c(vocab_size,feature_len + 1),
+#                          batch.size = batch_size,
+#                          shuffle = TRUE)
+train.array.it <- CustomCSVIter(data.csv = "fake_num.csv",
+                          data.shape = c(15,11),
+                          batch.size = batch.size,
                           shuffle = TRUE)
+train.y <- as.integer(sample(c(0,1), replace=TRUE, size=batch.size))
+train.y.it <- mx.io.arrayiter(data=train.y, label=train.y, batch.size=batch.size, 
+                               shuffle=TRUE)
+
 
 ######################################################################
 #Load model
@@ -46,10 +56,13 @@ network <- network_model()
 #Train the NN
 devices <- mx.cpu()
 time_init <- Sys.time()
-model <- mx.model.FeedForward.create(network, X=train.array, y=train.y,
-                                     ctx=devices, num.round=1, array.batch.size=batch_size,
-                                     learning.rate=learning_rate, momentum=momentum,  
-                                     eval.metric=mx.metric.accuracy, wd=0.00001,
+model <- mx.model.FeedForward.create(network, X=train.array.it, y=train.y.it,
+                                     ctx=devices, num.round=1, 
+                                     array.batch.size=batch_size,
+                                     learning.rate=learning_rate, 
+                                     momentum=momentum,  
+                                     eval.metric=mx.metric.accuracy, 
+                                     wd=0.00001,
                                      epoch.end.callback=mx.callback.log.train.metric(100))
 time_end <- Sys.time()
 difftime(time_end, time_init, units = "mins")
