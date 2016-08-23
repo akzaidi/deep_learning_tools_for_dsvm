@@ -11,6 +11,9 @@ installer
 *.Rproj
 *.Rproj.user
 log.txt
+*.tmp
+.ipynb_checkpoints
+.fuse_hidden*
 
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv*
