@@ -36,8 +36,7 @@ dim(test.array) <- c(28, 28, 1, ncol(test.x))
 
 # Creation of LeNet
 if(!exists("network_model", mode="function")) source("lenet_cnn_model.R")
-data <- mx.symbol.Variable('data')
-lenet <- network_model(data)
+lenet <- network_model()
 
 
 #Train the NN
