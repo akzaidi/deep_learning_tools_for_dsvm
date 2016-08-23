@@ -16,8 +16,8 @@ log.txt
 solutions/character_recognition/data/*.csv*
 solutions/character_recognition/data/*ubyte*
 solutions/character_recognition/data/*.zip
-solutions/character_recognition/R/mxnet/*.json
-solutions/character_recognition/R/mxnet/*.params
+solutions/character_recognition/*/mxnet/*.json
+solutions/character_recognition/*/mxnet/*.params
 solutions/image_classification_imagenet/data/Inception*
 solutions/image_classification_cifar/data/cifar*
 solutions/word_prediction_from_char/data/tiny_shakespeare.txt
