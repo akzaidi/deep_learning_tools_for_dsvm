@@ -14,6 +14,7 @@ log.txt
 
 # Ignore files in data folder
 solutions/character_recognition/data/*.csv*
+solutions/character_recognition/data/*ubyte*
 solutions/image_classification_imagenet/data/Inception*
 solutions/image_classification_cifar/data/cifar*
 solutions/word_prediction_from_char/data/tiny_shakespeare.txt
