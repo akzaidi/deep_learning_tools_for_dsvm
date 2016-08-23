@@ -16,9 +16,9 @@ log.txt
 .fuse_hidden*
 
 # Ignore files in data folder
-solutions/character_recognition/data/*.csv*
-solutions/character_recognition/data/*ubyte*
-solutions/character_recognition/data/*.zip
+solutions/*/data/*.csv*
+solutions/*/data/*ubyte*
+solutions/*/data/*.zip
 solutions/character_recognition/*/mxnet/*.json
 solutions/character_recognition/*/mxnet/*.params
 solutions/image_classification_imagenet/data/Inception*
