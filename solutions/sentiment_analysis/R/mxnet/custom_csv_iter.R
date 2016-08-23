@@ -21,7 +21,7 @@ CustomCSVIter <- function (data.csv, data.shape, batch.size, shuffle=FALSE)
     dat[, ,1 , b] <- vec2mat(vect[, , b],vocab_size, feature_len)
   }
   dim(dat) <- c(vocab_size, feature_len, 1, batch.size)
-  label <- array(0, c(1,batch.size))#temp
+  label <- as.integer(sample(c(0,1), replace=TRUE, size=batch.size))#temp
   custom_iter <- mx.io.arrayiter(data=dat, label=label, batch.size=batch.size, 
                                  shuffle=shuffle) 
 }
