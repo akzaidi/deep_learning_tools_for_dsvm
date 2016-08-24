@@ -23,7 +23,7 @@ Scripts in R with simple and advanced methods with mxnet:
 
     cd R/mxnet  
     R < lenet_simple.R --no-save  
-    R < lenet_advanced.R
+    R < lenet_advanced.R --no-save  
 
 * Lenet CNN in python
 Notebook with a simple and an advanced methods in python with mxnet:
