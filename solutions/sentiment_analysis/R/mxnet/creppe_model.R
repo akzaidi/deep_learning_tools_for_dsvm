@@ -22,7 +22,6 @@ creppe_model <- function(vocab_size=69,num_output_classes=2){
   relu1 <- mx.symbol.Activation(data=conv1, act_type=act_type)
   pool1 <- mx.symbol.Pooling(data=relu1, pool_type=pool_type, kernel=kernel3, 
                              stride=stride)
-  
   # 2. 336 x 256
   conv2 <- mx.symbol.Convolution(data=pool1, kernel=kernel7, 
                                  num_filter=num_filters)
